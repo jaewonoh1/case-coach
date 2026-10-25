@@ -104,6 +104,31 @@ def check_math(case: dict, user_msg: str) -> dict:
     return chat_json(messages, label="math_checker", default={"checks": [], "overall": ""})
 
 
+def debrief(case: dict, conversation: list[dict], avg_scores: dict) -> dict:
+    """End-of-case summary: headline, strengths, improvements, verdict (JSON)."""
+    transcript = "\n".join(
+        f"{'INTERVIEWER' if t['role'] == 'assistant' else 'CANDIDATE'}: {t['content']}"
+        for t in conversation
+    )
+    messages = [
+        {"role": "system", "content": _prompt("debrief")},
+        {
+            "role": "user",
+            "content": (
+                f"CASE: {case['title']} ({case.get('type', '')})\n\n"
+                f"AVERAGE SCORES — structure {avg_scores.get('structure')}, "
+                f"MECE {avg_scores.get('mece')}, depth {avg_scores.get('depth')}\n\n"
+                f"TRANSCRIPT:\n{transcript}"
+            ),
+        },
+    ]
+    return chat_json(
+        messages,
+        label="debrief",
+        default={"headline": "", "strengths": [], "improvements": [], "verdict": ""},
+    )
+
+
 def coach_tip(case: dict, user_msg: str, grader: dict, math: dict, focus: str | None = None) -> str:
     """One targeted improvement, synthesizing the graders' output.
 

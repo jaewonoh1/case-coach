@@ -1,0 +1,61 @@
+{
+  "id": "energy-refinery-margin",
+  "title": "Refinery Margin Decline",
+  "type": "Profitability",
+  "difficulty": "Medium",
+  "prompt": "Your client owns an oil refinery. Throughput (barrels processed) has been flat for two years, but profit has fallen sharply. The CEO wants to know why and what to do. How would you approach it?",
+  "background": [
+    "A refinery buys crude oil and sells refined products (gasoline, diesel, jet fuel).",
+    "The 'crack spread' is the difference between product prices and the crude cost — the refiner's gross margin per barrel.",
+    "Throughput is ~100 million barrels per year and has not changed.",
+    "The product mix (gasoline/diesel/jet) is roughly unchanged."
+  ],
+  "clarifying_answers": {
+    "What is the goal": "Restore profitability within about a year.",
+    "Has volume changed": "No — throughput is flat at ~100M barrels/year.",
+    "Has the product mix changed": "No, roughly unchanged.",
+    "Is this industry-wide": "Crack spreads have compressed across the industry; the refiner is largely a price-taker on spreads."
+  },
+  "exhibits": [
+    {
+      "id": "exhibit1",
+      "name": "Crack Spread Then vs. Now",
+      "description": "Gross margin per barrel, two years ago vs. today.",
+      "data": "Crack spread fell from $15/barrel two years ago to $9/barrel today — crude costs rose and product prices lagged."
+    },
+    {
+      "id": "exhibit2",
+      "name": "Operating Cost per Barrel",
+      "description": "Refinery operating cost per barrel.",
+      "data": "Operating cost per barrel rose from $4 to $5 (higher energy and labor costs)."
+    }
+  ],
+  "good_framework": [
+    "Profit per barrel = crack spread (product price − crude) − operating cost; throughput is flat, so decompose margin per barrel.",
+    "Crack spread: is the decline from crude up, products down, or both? Is it market-wide?",
+    "Operating cost: fixed vs. variable, which line rose.",
+    "Levers the refiner controls (mix, opex, hedging) vs. doesn't (the spread).",
+    "Tie to the ~1-year goal."
+  ],
+  "quant": [
+    {
+      "question": "By how much did net margin per barrel fall?",
+      "expected": "$7/barrel",
+      "range": [6.0, 8.0],
+      "work": "Crack spread -$6 (15→9) plus operating cost +$1 (4→5) = $7/barrel lower net margin."
+    },
+    {
+      "question": "What is the annual profit impact?",
+      "expected": "~$700M",
+      "range": [600, 800],
+      "work": "$7/barrel x 100M barrels/year = $700M annual profit decline."
+    },
+    {
+      "question": "If a mix shift toward higher-value distillates adds $3/barrel, what is the annual uplift?",
+      "expected": "~$300M",
+      "range": [250, 350],
+      "work": "$3/barrel x 100M barrels = $300M/year — recovering part of the decline."
+    }
+  ],
+  "recommendation": "The decline is driven by crack-spread compression (crude rose, product prices lagged) worth ~$6/barrel, plus $1/barrel of opex inflation — ~$700M/year. The refiner is a price-taker on the spread, so the controllable levers are: optimize product mix toward higher-margin distillates (~$3/bbl, ~$300M), cut energy/opex, and hedge crack spreads. Recommend a mix-and-opex program plus hedging; don't count on the spread recovering."
+}

@@ -1,0 +1,61 @@
+{
+  "id": "growth-dtc-brand",
+  "title": "Doubling Revenue at a DTC Skincare Brand",
+  "type": "Growth Strategy",
+  "difficulty": "Medium",
+  "prompt": "Your client is a direct-to-consumer (DTC) skincare brand that wants to double revenue in three years. They sell online, are profitable, and have loyal repeat customers. How should they do it?",
+  "background": [
+    "Current revenue is $50M per year.",
+    "They sell through their own website and Amazon; no physical retail.",
+    "They have strong repeat-purchase behavior.",
+    "They are currently profitable."
+  ],
+  "clarifying_answers": {
+    "What is the goal": "Double revenue from $50M to $100M within three years.",
+    "What channels": "DTC website plus Amazon today; open to new channels.",
+    "Profitability constraint": "Growth should keep the business profitable, not buy revenue at a loss.",
+    "Any product constraints": "Open to new products, bundles, and subscription."
+  },
+  "exhibits": [
+    {
+      "id": "exhibit1",
+      "name": "Revenue Build",
+      "description": "How current revenue breaks down.",
+      "data": "Revenue = customers x orders per year x average order value (AOV). Today: 500,000 customers x 2 orders/year x $50 AOV = $50M."
+    },
+    {
+      "id": "exhibit2",
+      "name": "Unit Economics",
+      "description": "Acquisition and retention metrics.",
+      "data": "New-customer acquisition cost (CAC) is $40; customer lifetime value (LTV) is $150; annual retention is 60%. Retail/wholesale could expand reach beyond the current base."
+    }
+  ],
+  "good_framework": [
+    "Decompose revenue = customers x frequency x AOV; each is a growth lever.",
+    "AOV: bundles, premium products, subscription.",
+    "Frequency: replenishment subscription, cross-sell.",
+    "Customers: paid acquisition (is LTV:CAC healthy enough to spend more?), new channels (retail/wholesale).",
+    "Keep it profitable; prioritize the highest-leverage lever given loyal repeat behavior."
+  ],
+  "quant": [
+    {
+      "question": "Confirm the current revenue build.",
+      "expected": "$50M",
+      "range": [48, 52],
+      "work": "500,000 customers x 2 orders/year x $50 AOV = $50M."
+    },
+    {
+      "question": "Find one combination of levers that roughly doubles revenue to ~$100M.",
+      "expected": "~$96M (700k customers x 2.5 orders x $55 AOV)",
+      "range": [90, 105],
+      "work": "700,000 customers x 2.5 orders/year x $55 AOV ≈ $96.25M — close to the $100M target."
+    },
+    {
+      "question": "Is the acquisition engine healthy enough to spend more on growth?",
+      "expected": "Yes — LTV:CAC ≈ 3.75:1",
+      "range": [3.0, 4.5],
+      "work": "$150 LTV / $40 CAC = 3.75:1, comfortably above the ~3:1 rule of thumb, so there's room to invest in acquisition."
+    }
+  ],
+  "recommendation": "Pull all three levers, led by subscription. A healthy LTV:CAC of 3.75:1 means they can profitably acquire more customers; raising AOV (bundles/premium) and frequency (a replenishment subscription, which fits their loyal repeat base) does the rest — e.g., 700k customers x 2.5 orders x $55 ≈ $96M. Add retail/wholesale for reach. Subscription is the highest-leverage move because it lifts both frequency and retention at once."
+}

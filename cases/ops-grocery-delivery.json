@@ -1,0 +1,61 @@
+{
+  "id": "ops-grocery-delivery",
+  "title": "Making Grocery Delivery Profitable",
+  "type": "Operations",
+  "difficulty": "Medium",
+  "prompt": "Your client is an online grocer that loses money on every delivery. They want to make delivery profitable without hurting the customer experience. How would you approach it?",
+  "background": [
+    "The grocer delivers orders to customers' homes from local stores/warehouses.",
+    "Average order value is $80, at a 30% gross margin (so $24 of margin per order).",
+    "Delivery currently costs more than that margin.",
+    "They don't want to degrade delivery speed/quality for customers."
+  ],
+  "clarifying_answers": {
+    "What is the goal": "Make the delivery operation at least break even per order.",
+    "What is the margin per order": "AOV $80 x 30% gross margin = $24 of margin per order, before delivery cost.",
+    "Is volume the problem": "No — demand is fine; the unit economics of delivery are the problem.",
+    "Any constraints": "Keep delivery windows reasonable; don't gut service quality."
+  },
+  "exhibits": [
+    {
+      "id": "exhibit1",
+      "name": "Delivery Cost per Order",
+      "description": "What it costs to deliver one order today.",
+      "data": "Delivery cost per order $30: driver labor $18, fuel/vehicle $6, picking/packing $6."
+    },
+    {
+      "id": "exhibit2",
+      "name": "Route Density",
+      "description": "Driver productivity drives the labor cost.",
+      "data": "A driver is paid $200/day (8 hours) and currently completes ~11 deliveries/day (low route density). If density doubled to ~22 deliveries/day, driver cost per delivery would roughly halve."
+    }
+  ],
+  "good_framework": [
+    "Profit per order = gross margin − delivery cost; delivery cost splits into labor, fuel/vehicle, picking/packing.",
+    "Labor per delivery is driven by route density (deliveries per driver per day) — the biggest lever.",
+    "Levers: densify routes (delivery windows, minimum order, zone batching), raise AOV / add a delivery fee, optimize picking.",
+    "Quantify the flip to profitability; protect service quality.",
+    "Tie to the break-even goal."
+  ],
+  "quant": [
+    {
+      "question": "What is the current profit (or loss) per order?",
+      "expected": "−$6 per order",
+      "range": [-7, -5],
+      "work": "$24 margin − $30 delivery cost = −$6 per order (a loss)."
+    },
+    {
+      "question": "If route density doubles (11 → 22 deliveries/day), what is the new labor cost per delivery and the new profit per order?",
+      "expected": "~$9 labor; ~+$3 profit per order",
+      "range": [2, 4],
+      "work": "$200/day ÷ 22 ≈ $9 labor per delivery (down from $18, saving ~$9). New delivery cost ~$21; $24 − $21 = +$3 per order."
+    },
+    {
+      "question": "If they also raise AOV to $100 (margin $30), what is profit per order at the denser routes?",
+      "expected": "~+$9 per order",
+      "range": [8, 10],
+      "work": "$30 margin − $21 delivery cost = +$9 per order."
+    }
+  ],
+  "recommendation": "The loss is driven mainly by low route density inflating driver labor ($18 of the $30 cost). Densifying routes — tighter delivery windows, minimum order sizes, and zone batching — roughly halves labor per delivery and flips the unit economics from −$6 to about +$3 per order on its own. Layering in a higher minimum/AOV (and a modest delivery fee) pushes it to ~+$9. Recommend a densification program first, protecting service with scheduled windows, then AOV levers."
+}

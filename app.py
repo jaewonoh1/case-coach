@@ -8,7 +8,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from coach import adapt, safety, tokens
+from coach import adapt, agents, safety, tokens
 from coach.cases import get_case, load_cases
 from coach.orchestrator import CaseSession
 
@@ -45,6 +45,8 @@ if "session" not in st.session_state:
     st.session_state.session = None
 if "last" not in st.session_state:
     st.session_state.last = None
+if "debrief" not in st.session_state:
+    st.session_state.debrief = None
 
 cases = load_cases()
 case_labels = {f"{c['title']}  ·  {c['type']} ({c['difficulty']})": c["id"] for c in cases}
@@ -72,7 +74,18 @@ with st.sidebar:
             sess.start()
         st.session_state.session = sess
         st.session_state.last = None
+        st.session_state.debrief = None
         st.rerun()
+
+    # End-of-case debrief: breakdown of scores + written feedback.
+    cur = st.session_state.session
+    if cur is not None and cur.scores:
+        if st.button("📋 End case & get summary", use_container_width=True):
+            with st.spinner("Writing your debrief…"):
+                st.session_state.debrief = agents.debrief(
+                    cur.case, cur.conversation, cur.average_scores()
+                )
+            st.rerun()
 
     st.divider()
     st.subheader("🛡️ Safety limits")
@@ -123,6 +136,27 @@ with chat_col:
             st.write(turn["content"])
 
 with coach_col:
+    dbf = st.session_state.debrief
+    if dbf and dbf.get("headline"):
+        st.subheader("📋 Case debrief")
+        avg = sess.average_scores()
+        d1, d2, d3 = st.columns(3)
+        d1.metric("Structure", avg["structure"])
+        d2.metric("MECE", avg["mece"])
+        d3.metric("Depth", avg["depth"])
+        st.success(dbf["headline"])
+        if dbf.get("strengths"):
+            st.markdown("**What you did well**")
+            for s in dbf["strengths"]:
+                st.markdown(f"- {s}")
+        if dbf.get("improvements"):
+            st.markdown("**To work on next**")
+            for s in dbf["improvements"]:
+                st.markdown(f"- {s}")
+        if dbf.get("verdict"):
+            st.caption(f"Verdict: {dbf['verdict']}")
+        st.divider()
+
     st.subheader("🎯 Coach")
     last = st.session_state.last
     if last is None:

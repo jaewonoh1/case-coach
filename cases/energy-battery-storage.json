@@ -1,0 +1,61 @@
+{
+  "id": "energy-battery-storage",
+  "title": "Grid-Scale Battery Storage Investment",
+  "type": "Investment",
+  "difficulty": "Hard",
+  "prompt": "Your client is a regional electric utility deciding whether to build a 100 MW / 400 MWh grid-scale battery (a 4-hour battery). It would charge when power is cheap, discharge when power is expensive, and earn capacity and grid-service payments. Should they build it?",
+  "background": [
+    "The client is a regulated utility with its own grid access and a low cost of capital.",
+    "The battery arbitrages power prices (charge low, discharge high) and is paid for being available (capacity) and for grid services.",
+    "Battery useful life is about 10–15 years.",
+    "The client will build and own it, not partner."
+  ],
+  "clarifying_answers": {
+    "What is the goal": "A positive-NPV investment over the battery's life, and strategic positioning for a grid with more renewables.",
+    "What size": "100 MW of power, 400 MWh of energy — it can discharge its full 400 MWh over 4 hours, roughly once per day.",
+    "Any constraints": "Build-your-own only; no acquisition.",
+    "Regulatory stance": "The regulator is supportive of storage."
+  },
+  "exhibits": [
+    {
+      "id": "exhibit1",
+      "name": "Capex and Revenue Streams",
+      "description": "Build cost and the three revenue streams.",
+      "data": "Capex: $300 per kWh x 400,000 kWh = $120M. Revenue: (1) energy arbitrage at a $60/MWh spread, discharging 400 MWh/day for ~350 days/year; (2) capacity payments of $80 per kW-year on 100,000 kW; (3) grid-service payments of about $2M/year."
+    },
+    {
+      "id": "exhibit2",
+      "name": "Operating Costs",
+      "description": "Annual running costs.",
+      "data": "Operating costs (O&M, round-trip efficiency losses, insurance) total about $4M per year."
+    }
+  ],
+  "good_framework": [
+    "Value of the asset: the three revenue streams (arbitrage, capacity, grid services) minus opex, vs. the capex.",
+    "Economics: annual net cash flow, simple payback, and whether it clears within the 10–15 year life.",
+    "Right to win: the utility's grid access, low cost of capital, regulatory support.",
+    "Risks: price-spread volatility, capacity-market rule changes, battery degradation.",
+    "Decision tied to the positive-NPV goal."
+  ],
+  "quant": [
+    {
+      "question": "What is the annual energy-arbitrage revenue?",
+      "expected": "~$8.4M/year",
+      "range": [7.5, 9.5],
+      "work": "400 MWh/day x 350 days = 140,000 MWh; x $60/MWh spread = $8.4M/year."
+    },
+    {
+      "question": "What is the total annual net cash flow?",
+      "expected": "~$14.4M/year",
+      "range": [12.0, 16.0],
+      "work": "Arbitrage $8.4M + capacity (100,000 kW x $80 = $8M) + grid services $2M = $18.4M revenue; minus $4M opex = $14.4M."
+    },
+    {
+      "question": "What is the simple payback on the $120M capex?",
+      "expected": "~8.3 years",
+      "range": [7.0, 10.0],
+      "work": "$120M / $14.4M per year = ~8.3 years, within the 10–15 year life."
+    }
+  ],
+  "recommendation": "Build it. Net cash flow of ~$14.4M/year gives an ~8.3-year payback inside a 10–15 year life, and the utility has a real right to win (grid access, low cost of capital, regulatory support). Key risks are price-spread volatility and capacity-market rule changes, so hedge where possible and stress-test the spread. Recommend proceeding, ideally phased, with a downside case on the arbitrage spread."
+}

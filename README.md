@@ -95,8 +95,9 @@ to populate the cost figure for the report.
 
 ## The case bank
 
-Cases live in `cases/*.json` (a small, self-contained test set ships with the
-repo): a profitability case, a market-entry case, and a pricing case. To add a
+Cases live in `cases/*.json` (8 self-contained cases ship with the repo, spanning
+profitability, market entry, pricing, investment, M&A, growth, and operations,
+including two energy-sector cases). To add a
 case, copy one of the JSON files and edit it — it is picked up automatically. To
 use a larger private bank, point `CASES_DIR` at another folder (see
 `coach/config.py`) or drop more `.json` files into `cases/`.
@@ -142,7 +143,7 @@ case-coach/
 │   ├── agents.py          # interviewer, grader, math checker, coach
 │   └── orchestrator.py    # coordinates a case session
 ├── prompts/               # one markdown prompt per agent
-├── cases/                 # JSON case bank (small test set)
+├── cases/                 # JSON case bank (8 cases, incl. 2 energy)
 ├── tools/update_impact.py # fills the Impact section from logged scores
 ├── requirements.txt
 └── .env.example

@@ -1,0 +1,60 @@
+{
+  "id": "ma-pharma-biotech",
+  "title": "Pharma Acquisition of a Biotech",
+  "type": "M&A",
+  "difficulty": "Hard",
+  "prompt": "Your client is a large pharmaceutical company considering acquiring a biotech whose only asset is a late-stage (Phase 3) drug. The biotech is asking $4 billion. Should the client acquire it, and is the price reasonable?",
+  "background": [
+    "The client has a large sales force, deep cash reserves, and wants to expand its pipeline.",
+    "The biotech's value is essentially one drug awaiting approval.",
+    "The client can commercialize the drug through its existing sales force."
+  ],
+  "clarifying_answers": {
+    "What is the goal": "A value-accretive acquisition — pay less than the drug is worth to the client.",
+    "Approval odds": "The Phase 3 drug has about a 70% probability of approval.",
+    "Exclusivity": "About 8 years of patent-protected exclusivity after launch.",
+    "Economics": "Operating margin on the drug is about 40%."
+  },
+  "exhibits": [
+    {
+      "id": "exhibit1",
+      "name": "Market Size",
+      "description": "Addressable patient population and pricing.",
+      "data": "200,000 eligible patients; drug price $20,000 per patient per year; expected peak penetration 25%."
+    },
+    {
+      "id": "exhibit2",
+      "name": "Deal Terms",
+      "description": "Ask price and key assumptions.",
+      "data": "Biotech asking price $4B. Approval probability 70%. ~8 years of exclusivity. 40% operating margin on drug revenue. (Ignore discounting for a first-pass estimate.)"
+    }
+  ],
+  "good_framework": [
+    "Standalone value of the drug: market size x price x penetration → peak revenue; apply margin, years of exclusivity, and approval probability.",
+    "Compare risk-adjusted value to the $4B ask.",
+    "Synergies: does the client's sales force accelerate uptake or raise peak share?",
+    "Strategic / pipeline optionality and risk (approval, competition).",
+    "Decision: pay, negotiate, or walk."
+  ],
+  "quant": [
+    {
+      "question": "What is peak annual revenue for the drug?",
+      "expected": "$1B/year",
+      "range": [0.8, 1.2],
+      "work": "200,000 patients x 25% penetration x $20,000 = $1B/year."
+    },
+    {
+      "question": "What is the rough risk-adjusted lifetime profit (undiscounted)?",
+      "expected": "~$2.24B",
+      "range": [1.8, 2.6],
+      "work": "$1B revenue x 40% margin = $400M/year; x 8 years = $3.2B; x 70% approval = ~$2.24B."
+    },
+    {
+      "question": "How does that compare to the $4B ask?",
+      "expected": "Below the ask by ~$1.8B",
+      "range": [1.4, 2.2],
+      "work": "$4B ask − ~$2.24B risk-adjusted value = ~$1.8B gap; the ask looks rich without synergies or a lower price."
+    }
+  ],
+  "recommendation": "Don't pay $4B as offered. A first-pass risk-adjusted, undiscounted value is only ~$2.2B — and discounting would lower it further — so the ask is ~$1.8B too high on standalone economics. The deal only makes sense if the client's sales force credibly raises peak penetration or speeds uptake (synergies), or if pipeline/optionality justifies a premium. Recommend negotiating the price down or walking; quantify synergies before bidding."
+}
