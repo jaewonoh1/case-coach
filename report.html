@@ -99,8 +99,8 @@
     <div class="links">
       <div><b>Author:</b> Jae Won Oh &nbsp;·&nbsp; <span class="muted">j.oh@yale.edu</span></div>
       <div><b>GitHub repo:</b> <a href="https://github.com/jaewonoh1/case-coach">github.com/jaewonoh1/case-coach</a></div>
-      <div><b>Live app:</b> <span class="muted">[Optional — paste hosted URL, or "runs locally; see README"]</span></div>
-      <div><b>Date:</b> [TODO] · <b>Model:</b> gpt-6-luna (via Portkey)</div>
+      <div><b>Live app:</b> <span class="muted">Runs locally — see README (clone, add <code>.env</code>, <code>streamlit run app.py</code>)</span></div>
+      <div><b>Date:</b> October 2026 · <b>Model:</b> gpt-6-luna (via Portkey)</div>
     </div>
     <div class="todo no-print" style="margin-top:34px;">
       <b>How to use this skeleton.</b> Every yellow box is a TODO; every blue dashed box names the exact evidence the rubric requires for that section; every hatched box is a screenshot slot — replace it with <code>&lt;img src="data:image/png;base64,…"&gt;</code> so images stay embedded in this single file. Target length is 10–15 printed pages. Delete these yellow boxes before submitting.
@@ -125,13 +125,13 @@
   <section class="section page-break">
     <h2>1 · Motivation</h2>
     <p><b>Who has the problem.</b> MBA and undergraduate students recruiting for management consulting must pass multiple rounds of <i>case interviews</i>. At Yale SOM alone, a large share of each class recruits for MBB and Tier-2 firms, and every one of them needs dozens of hours of case practice to be competitive.</p>
-    <p><b>How they handle it today.</b> [TODO: describe the status quo — practicing with classmates (hard to schedule, uneven quality), paid coaches, and prep platforms.] The current options each have a real cost:</p>
+    <p><b>How they handle it today.</b> Recruits assemble practice from three sources — live cases with classmates, paid (often ex-MBB) coaches, and self-study on prep platforms and books. Each has a real cost:</p>
     <ul>
-      <li><b>Peer practice:</b> free, but quality is uneven and you can't practice on demand.</li>
-      <li><b>Professional case coaches:</b> [TODO: cite typical rate, e.g. $100–$300/hour] — effective but expensive and limited.</li>
-      <li><b>Prep platforms / books:</b> [TODO: name them] — static or dependent on finding a partner.</li>
+      <li><b>Peer practice:</b> free, but quality is uneven, feedback is unstructured, and you can only practice when a partner is free.</li>
+      <li><b>Professional case coaches:</b> roughly <b>$150–$350 per hour</b> for an ex-MBB coach (ManagementConsulted lists a 1-hour session at $350 and a 4-hour package at $950; MyConsultingCoach bundles five sessions for ~$1,000) — effective but expensive and limited in hours.</li>
+      <li><b>Prep platforms &amp; books:</b> PrepLounge (peer mocks + 200+ cases; Premium ~$69/yr), RocketBlocks (~$35/mo drills), and books like <i>Case in Point</i> — cheaper, but static or still dependent on finding a partner.</li>
     </ul>
-    <p><b>What it costs them.</b> [TODO: quantify — hours of prep per offer, dollars spent on coaching, or the opportunity cost of a missed offer. One concrete number here is worth a paragraph of adjectives.]</p>
+    <p><b>What it costs them.</b> A serious recruit spends <b>dozens of hours</b> and often <b>$500–$2,000</b> on coaching across a season — and the opportunity cost dwarfs that: a missed MBB offer is a first-year package well over <b>$200,000</b>. <span class="muted">[Optional: add your own hours/spend to personalize this.]</span></p>
     <div class="evidence">Evidence required for this row: <b>named existing products you compare against</b> (do this in §2). Motivation + novelty is worth 8 report points.</div>
   </section>
 
@@ -143,12 +143,13 @@
     <table>
       <tr><th>Option</th><th>What it does</th><th>Where Case Coach differs</th></tr>
       <tr><td>Generic ChatGPT / Claude prompt</td><td>Will role-play a case if asked</td><td>Leaks the answer the moment you ask; no structured scoring; no guardrail against "just tell me"</td></tr>
-      <tr><td>PrepLounge / case partners</td><td>Match you with a human partner</td><td>[TODO: verify] Needs scheduling + a willing partner; Case Coach is on-demand and grades consistently</td></tr>
-      <tr><td>Professional coach</td><td>Expert feedback</td><td>[TODO: rate] $$$ and limited hours; Case Coach is ~free per run and unlimited</td></tr>
+      <tr><td><b>Soreno AI</b> (AI case tool)</td><td>Voice AI interviewer; shares exhibits; scores against a rubric (~$199/mo)</td><td>Closest competitor. Case Coach is near-free and self-hostable, uses <i>separate</i> math and structure graders, and ships an explicit, demonstrated answer-leak guardrail (open code)</td></tr>
+      <tr><td>PrepLounge / case partners</td><td>Peer mocks + 200+ cases (free tier capped; Premium ~$69/yr)</td><td>Needs a willing partner and scheduling; Case Coach is on-demand and grades consistently</td></tr>
+      <tr><td>Professional coach</td><td>Expert human feedback ($150–$350/hr)</td><td>$$$ and limited hours; Case Coach is ~$0.001 per run and unlimited</td></tr>
       <tr><td>Case books (e.g., Case in Point)</td><td>Static frameworks</td><td>No interaction, no live math check, no personalized coaching</td></tr>
     </table>
-    <p><b>The core novelty:</b> three things a generic LLM prompt does not do — (1) the interviewer <i>refuses to reveal</i> the framework, exhibits, and numbers until you earn them; (2) a dedicated agent grades <i>math</i> and another grades <i>structure (MECE/depth)</i> separately; (3) a coach turns both into exactly one actionable fix per turn.</p>
-    <div class="evidence">Evidence required: <b>named products</b> compared against (table above — fill the TODOs with real names/prices).</div>
+    <p><b>The core novelty:</b> commercial AI tools like Soreno now role-play cases too, so the edge is not "an AI interviewer." It is the combination of (1) a <i>transparent multi-agent</i> design — separate agents grade math and structure (MECE/depth) rather than one opaque score; (2) an explicit, deterministic <i>answer-leak guardrail</i> shown blocking injections before any model call; and (3) <i>near-zero cost and self-hostability</i> (~$0.001/run vs. ~$199/mo), with open code a student can run and extend.</p>
+    <div class="evidence">Evidence present: named products compared against (ChatGPT, Soreno AI, PrepLounge, professional coaches, Case in Point) with real prices.</div>
   </section>
 
   <!-- ============================ 3. THE AGENTS ============================ -->
@@ -208,7 +209,7 @@
     </figure>
 
     <h3>Model choice</h3>
-    <p>All four agents use <b>gpt-6-luna</b>, the only model the course key permits, routed through Portkey. It is run with <code>reasoning_effort = "none"</code> so it behaves like a fast chat model — low latency for a live interview and lower token cost (see §4). [TODO: add one sentence on why a single capable model across all agents is the right call here vs. mixing models.]</p>
+    <p>All four agents use <b>gpt-6-luna</b>, the only model the course key permits, routed through Portkey. It is run with <code>reasoning_effort = "none"</code> so it behaves like a fast chat model — low latency for a live interview and lower token cost (see §4). A single capable model across all four roles keeps the system simple and cheap: no routing logic, shared prompt caching, and each role shaped entirely by its own system prompt rather than a different model. The tasks (in-character role-play, JSON grading, a one-line tip) all sit well within one model's range, so splitting across models would add cost and operational complexity for no measurable quality gain.</p>
 
     <h3>One traced run (step by step)</h3>
     <p>The sequence below is a real run; replace each slot with a screenshot from the app.</p>
@@ -295,9 +296,9 @@ reply:   "I can't hand you the answer, the model framework, or data you
     <p><b>The claim:</b> Case Coach gives on-demand, structured case practice at near-zero marginal cost, replacing scarce peer time and expensive coaching.</p>
     <h3>Quantified benefit</h3>
     <ul>
-      <li><b>Money:</b> [TODO: vs. $X/hr coaching — cost per practice case is ~$Y, a Z% reduction.]</li>
-      <li><b>Time:</b> [TODO: practice on demand vs. hours spent scheduling partners.]</li>
-      <li><b>Quality:</b> [TODO: before/after structure scores over a week of practice — the app already tracks these.]</li>
+      <li><b>Money:</b> model cost is ~<b>$0.0012 per full case</b> vs. <b>$150–$350</b> for an hour with a coach — roughly <b>five orders of magnitude cheaper</b> per practice case. Twenty cases a month cost ~$0.02 in model spend vs. $3,000–$7,000 in coaching.</li>
+      <li><b>Time:</b> a coach or peer session must be booked around someone else's calendar; Case Coach starts a full, graded case <b>in seconds, any hour</b>, removing the scheduling bottleneck that caps peer practice.</li>
+      <li><b>Quality:</b> every answer is scored on structure, MECE, and depth, so improvement is <b>measurable across a week of practice</b>. <span class="muted">[Add your before/after average scores once you've run several sessions — the app tracks them automatically.]</span></li>
     </ul>
     <h3>Real user evidence (strongest proof)</h3>
     <p>[TODO: have 2–3 classmates run a case. Capture a quote, a screenshot of their score improving across turns, or a before/after. A real user trying the app is the single strongest piece of evidence in the whole report.]</p>
@@ -312,15 +313,16 @@ reply:   "I can't hand you the answer, the model framework, or data you
     <ul>
       <li>Small case bank (3 cases); no charts/exhibit images, only text data.</li>
       <li>Phase advancement is heuristic, not a hard gate; a candidate can ramble.</li>
-      <li>No voice; real interviews are spoken.</li>
-      <li>[TODO: add anything you hit while testing.]</li>
+      <li>No voice; real interviews are spoken (Soreno and a live interviewer both have this).</li>
+      <li>The gateway content filter occasionally blocks a legitimate but oddly-phrased answer; it's handled gracefully but interrupts the flow.</li>
+      <li>The interviewer is text-only and can be verbose; there is no hard per-phase time limit yet.</li>
     </ul>
     <h3>What I would build next</h3>
     <ul>
       <li>A larger, tagged case bank (by industry and type) with real exhibit charts.</li>
       <li>Voice mode for realistic spoken practice.</li>
       <li>A persistent profile that tracks your weak dimension across sessions and targets it.</li>
-      <li>[TODO: your own priority.]</li>
+      <li>A shareable end-of-session summary (scores + transcript) to send a coach or track progress across the recruiting season.</li>
     </ul>
   </section>
 
