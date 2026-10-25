@@ -1,0 +1,61 @@
+{
+  "id": "market-entry-ev",
+  "title": "EV Charging Market Entry for a Utility",
+  "type": "Market Entry",
+  "difficulty": "Medium",
+  "prompt": "Your client is a regional electric utility considering entering the public EV (electric vehicle) fast-charging business in its home state. They would build and operate charging stations. Should they enter? Walk me through how you'd think about it.",
+  "background": [
+    "The utility already generates and distributes electricity in the state.",
+    "The public fast-charging market in the state is currently served by two national players.",
+    "The client is comfortable with large, long-payback infrastructure investments.",
+    "Regulators are supportive of EV adoption."
+  ],
+  "clarifying_answers": {
+    "What does success look like": "A positive NPV business at scale within 7 years and strategic positioning for EV-driven electricity demand.",
+    "Any constraints": "The client will not acquire an existing charging company; this is build-your-own.",
+    "Geographic scope": "Home state only for now.",
+    "What is the client's advantage": "Low cost of capital, existing grid access, and brand trust with residents."
+  },
+  "exhibits": [
+    {
+      "id": "exhibit1",
+      "name": "State EV Market Sizing Inputs",
+      "description": "Inputs to size the public fast-charging opportunity.",
+      "data": "4,000,000 cars registered in the state. EV penetration expected to reach 10% in 5 years = 400,000 EVs. ~20% of charging happens at public fast chargers. Average EV uses ~3,000 kWh/year; so public fast-charging demand ~ 400,000 x 3,000 x 20% = 240M kWh/year."
+    },
+    {
+      "id": "exhibit2",
+      "name": "Charger Unit Economics",
+      "description": "Economics of one fast-charging stall.",
+      "data": "One stall costs $150,000 to build. It can deliver up to 150,000 kWh/year at target utilization. Gross margin to the operator is $0.20 per kWh after electricity cost. Operating cost per stall is $8,000/year."
+    }
+  ],
+  "good_framework": [
+    "Market attractiveness: size and growth of public fast-charging demand in the state.",
+    "Competition: how the two incumbents are positioned; is there room for a third?",
+    "Client capabilities / right to win: grid access, cost of capital, brand, regulatory goodwill.",
+    "Economics: capex per stall, utilization, margin per kWh, payback / NPV.",
+    "Risks and decision: regulatory, technology, utilization ramp."
+  ],
+  "quant": [
+    {
+      "question": "What is the annual public fast-charging demand in the state in 5 years (kWh)?",
+      "expected": "~240 million kWh/year",
+      "range": [200, 280],
+      "work": "400,000 EVs x 3,000 kWh/year x 20% public fast-charging = 240M kWh/year."
+    },
+    {
+      "question": "How many stalls would be needed to serve that demand?",
+      "expected": "~1,600 stalls",
+      "range": [1400, 1800],
+      "work": "240M kWh / 150,000 kWh per stall = 1,600 stalls at target utilization."
+    },
+    {
+      "question": "What is the annual gross profit per stall at target utilization?",
+      "expected": "~$22,000 per stall",
+      "range": [18, 26],
+      "work": "150,000 kWh x $0.20 margin = $30,000 gross; minus $8,000 opex = ~$22,000/year. Payback on $150k capex ~7 years."
+    }
+  ],
+  "recommendation": "Enter selectively. The market is sizable (~240M kWh/year, ~1,600 stalls) and the client has a real right to win (low capital cost, grid access, brand, regulatory support). Per-stall economics give ~$22k/year and a ~7-year payback — viable given the client's long-payback tolerance, but sensitive to utilization. Recommend a phased build in high-traffic corridors, validate utilization, then scale. Key risk: slower-than-expected EV adoption and incumbent price competition."
+}

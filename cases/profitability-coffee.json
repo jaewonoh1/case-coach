@@ -1,0 +1,61 @@
+{
+  "id": "profitability-coffee",
+  "title": "Declining Profits at BlueBrew Coffee",
+  "type": "Profitability",
+  "difficulty": "Medium",
+  "prompt": "Your client is BlueBrew, a chain of 40 campus coffee shops in the Northeast US. Over the last two years, revenue has been flat but profit has fallen by about 30%. The CEO wants to know why profits are declining and what to do about it. How would you approach this?",
+  "background": [
+    "BlueBrew sells drinks (80% of revenue) and packaged food (20% of revenue).",
+    "All 40 stores are company-owned; none are franchised.",
+    "The chain has not raised drink prices in two years.",
+    "No new stores were opened or closed in the period."
+  ],
+  "clarifying_answers": {
+    "What is the client's goal": "Return profit to its level from two years ago within 12 months.",
+    "Has the product mix changed": "Drinks vs. food split is unchanged at 80/20.",
+    "Is this an industry-wide trend": "Competitors have raised prices ~8% over the same period; BlueBrew has not.",
+    "Revenue flat means": "Total revenue is roughly 50 million dollars per year, unchanged."
+  },
+  "exhibits": [
+    {
+      "id": "exhibit1",
+      "name": "Cost Breakdown (annual, per year)",
+      "description": "Major cost lines two years ago vs. today.",
+      "data": "Two years ago: COGS 15M, Labor 12M, Rent 8M, Other 5M, total costs 40M on 50M revenue (profit 10M). Today: COGS 18M, Labor 15M, Rent 8M, Other 5M, total costs 46M on 50M revenue (profit ~7M, a ~30% drop)."
+    },
+    {
+      "id": "exhibit2",
+      "name": "Unit Economics per Drink",
+      "description": "Average selling price and variable cost per drink.",
+      "data": "Average drink price $4.00 unchanged. Variable cost per drink rose from $1.20 to $1.55 (milk and coffee bean inflation). Volume ~10 million drinks/year, unchanged."
+    }
+  ],
+  "good_framework": [
+    "Profit = Revenue - Costs; revenue is flat, so decompose costs.",
+    "Revenue side: price x volume, by product line (drinks vs. food); confirm neither is masking the other.",
+    "Cost side: split fixed (rent, salaried labor) vs. variable (COGS, hourly labor); find which line grew.",
+    "External: input-cost inflation, competitor pricing, wage pressure.",
+    "Tie back to the 12-month goal with concrete levers."
+  ],
+  "quant": [
+    {
+      "question": "By how much did total annual profit fall in dollars?",
+      "expected": "$3M (from $10M to $7M)",
+      "range": [2.5, 3.5],
+      "work": "Revenue 50M flat. Costs rose from 40M to 46M, so profit fell from 10M to ~7M, a ~3M / 30% drop."
+    },
+    {
+      "question": "How much did rising variable cost per drink reduce annual profit?",
+      "expected": "~$3.5M",
+      "range": [3.0, 4.0],
+      "work": "Variable cost per drink up $0.35 (1.55 - 1.20) x 10M drinks = $3.5M, which explains essentially all of the profit decline."
+    },
+    {
+      "question": "If BlueBrew raised drink price by 8% (to ~$4.32), what is the annual revenue uplift at flat volume?",
+      "expected": "~$3.2M",
+      "range": [2.8, 3.6],
+      "work": "$0.32 extra per drink x 10M drinks = $3.2M, roughly restoring lost profit if volume holds."
+    }
+  ],
+  "recommendation": "The decline is almost entirely driven by input-cost inflation raising variable cost per drink by $0.35, cutting ~$3.5M of profit, while BlueBrew held price flat as competitors raised ~8%. Recommend a targeted price increase (~8%) plus supplier renegotiation on beans/milk; monitor volume elasticity. Risks: price-sensitive student segment and competitor response."
+}

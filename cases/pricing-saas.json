@@ -1,0 +1,61 @@
+{
+  "id": "pricing-saas",
+  "title": "Pricing a New SaaS Analytics Product",
+  "type": "Pricing",
+  "difficulty": "Hard",
+  "prompt": "Your client is a B2B software company launching a new analytics product for mid-size retailers. They have strong technology but no idea how to price it. How would you help them set a price?",
+  "background": [
+    "The product helps retailers cut inventory waste using demand forecasting.",
+    "Target customers are mid-size retailers with $50M-$500M in annual revenue.",
+    "The client sells other software to these customers already (existing sales force).",
+    "The product is cloud-based; marginal cost to serve one customer is near zero."
+  ],
+  "clarifying_answers": {
+    "What is the goal": "Maximize profit over three years while gaining a strong foothold.",
+    "What pricing approaches exist": "Cost-plus, competitor-based, and value-based are all on the table.",
+    "Is there a direct competitor": "One competitor charges a flat $40,000/year per customer.",
+    "What value does it create": "See exhibit on customer value."
+  },
+  "exhibits": [
+    {
+      "id": "exhibit1",
+      "name": "Customer Value Created",
+      "description": "Estimated annual savings for a typical target customer.",
+      "data": "A typical target customer has $200M revenue and holds inventory equal to 15% of revenue = $30M. The product reduces inventory waste by ~2% of inventory value = $600,000 saved per year per customer."
+    },
+    {
+      "id": "exhibit2",
+      "name": "Market and Adoption",
+      "description": "Addressable customers and expected adoption at different prices.",
+      "data": "There are 2,000 target retailers. At a $40,000/year price, the client expects 10% adoption (200 customers). Internal research suggests adoption falls to ~5% at $80,000 and rises to ~20% at $20,000."
+    }
+  ],
+  "good_framework": [
+    "Pricing approaches: cost-plus (irrelevant here, near-zero marginal cost), competitor-based ($40k anchor), value-based (share of value created).",
+    "Value to customer: quantify savings created ($600k/year) and capture a defensible share.",
+    "Demand / elasticity: adoption at different price points across the 2,000-customer market.",
+    "Profit = price x customers adopting; find the revenue-maximizing point given near-zero cost.",
+    "Strategy: land-and-expand, bundling with existing software, risk of competitor response."
+  ],
+  "quant": [
+    {
+      "question": "What annual value does the product create for a typical customer?",
+      "expected": "$600,000/year",
+      "range": [550, 650],
+      "work": "$200M revenue x 15% inventory = $30M inventory; x 2% waste reduction = $600,000/year."
+    },
+    {
+      "question": "Compare annual revenue at $20k, $40k, and $80k given expected adoption.",
+      "expected": "$20k -> $8M; $40k -> $8M; $80k -> $8M (all roughly equal)",
+      "range": [7, 9],
+      "work": "$20k x 20% x 2000 = $8M; $40k x 10% x 2000 = $8M; $80k x 5% x 2000 = $8M. Revenue is similar, so decide on strategy, not just revenue."
+    },
+    {
+      "question": "At the $40k price, what share of the value created is the client capturing?",
+      "expected": "~7% ($40k of $600k)",
+      "range": [5, 9],
+      "work": "$40,000 price / $600,000 value = ~6.7%, leaving large room to raise price on a value basis."
+    }
+  ],
+  "recommendation": "Price on value, not cost or the competitor's anchor. The product creates ~$600k/year of value but the competitor captures only ~7% at $40k. Revenue is similar across price points (~$8M), so use strategy to break the tie: enter near the $40k competitive anchor to win share fast via the existing sales force (land-and-expand), then introduce value-based tiers and premium pricing as ROI is proven. Risk: competitor price war and customers disputing the savings estimate, so build in ROI guarantees or pilots."
+}

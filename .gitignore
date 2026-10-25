@@ -1,0 +1,19 @@
+# Secrets — never commit real keys
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.Python
+
+# App data / logs (regenerated at runtime)
+data/token_log.jsonl
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
