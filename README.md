@@ -9,6 +9,11 @@ What makes it more than a mock interviewer: it **remembers your scores across
 sessions, finds your weakest dimension (structure, MECE, or depth), and focuses
 the next case on it** — the interviewer presses there and the coach prioritizes it.
 
+**Voice mode** (optional): toggle "Read the interviewer aloud" to hear the
+interviewer, and answer with the 🎤 mic. Voice uses the browser's built-in speech
+engine (no audio model / API) — the interviewer reads aloud in any browser; voice
+input works in Chrome/Edge.
+
 Built for MGT 409 (AI Foundations for Managers). Single model: **gpt-6-luna** via
 the Portkey gateway.
 

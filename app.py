@@ -5,12 +5,38 @@ Run with:  streamlit run app.py
 
 from __future__ import annotations
 
+import json
+
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 
 from coach import adapt, agents, safety, tokens
 from coach.cases import get_case, load_cases
 from coach.orchestrator import CaseSession
+
+# Optional browser voice input (Chrome/Edge). Falls back to text if unavailable.
+try:
+    from streamlit_mic_recorder import speech_to_text
+
+    VOICE_INPUT = True
+except Exception:
+    VOICE_INPUT = False
+
+
+def speak(text: str) -> None:
+    """Have the browser read `text` aloud via the Web Speech API (no API/model)."""
+    components.html(
+        f"""
+        <script>
+          const u = new SpeechSynthesisUtterance({json.dumps(text)});
+          u.rate = 1.0;
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(u);
+        </script>
+        """,
+        height=0,
+    )
 
 st.set_page_config(page_title="Case Coach", page_icon="📊", layout="wide")
 
@@ -47,6 +73,10 @@ if "last" not in st.session_state:
     st.session_state.last = None
 if "debrief" not in st.session_state:
     st.session_state.debrief = None
+if "voice" not in st.session_state:
+    st.session_state.voice = False
+if "spoken_text" not in st.session_state:
+    st.session_state.spoken_text = None
 
 cases = load_cases()
 case_labels = {f"{c['title']}  ·  {c['type']} ({c['difficulty']})": c["id"] for c in cases}
@@ -86,6 +116,16 @@ with st.sidebar:
                     cur.case, cur.conversation, cur.average_scores()
                 )
             st.rerun()
+
+    st.divider()
+    st.subheader("🔊 Voice mode")
+    st.session_state.voice = st.toggle(
+        "Read the interviewer aloud", value=st.session_state.voice
+    )
+    if VOICE_INPUT:
+        st.caption("Interviewer speaks; use the 🎤 mic below the chat to answer by voice (Chrome/Edge).")
+    else:
+        st.caption("Interviewer can speak aloud. For voice *input*, `pip install streamlit-mic-recorder` and use Chrome/Edge.")
 
     st.divider()
     st.subheader("🛡️ Safety limits")
@@ -193,9 +233,35 @@ with coach_col:
             df = pd.DataFrame(sess.scores).set_index("turn")[["structure", "mece", "depth"]]
             st.line_chart(df)
 
-# --- Candidate input ----------------------------------------------------------
-prompt = st.chat_input("Your answer…")
-if prompt:
+# --- Voice output: read the latest interviewer message aloud ------------------
+if st.session_state.voice and sess.conversation:
+    latest_ai = next(
+        (t["content"] for t in reversed(sess.conversation) if t["role"] == "assistant"),
+        None,
+    )
+    if latest_ai and latest_ai != st.session_state.spoken_text:
+        st.session_state.spoken_text = latest_ai
+        speak(latest_ai)
+
+# --- Candidate input (voice or text) ------------------------------------------
+answer = None
+if VOICE_INPUT:
+    spoken = speech_to_text(
+        language="en",
+        start_prompt="🎤 Speak your answer",
+        stop_prompt="⏹ Stop & send",
+        just_once=True,
+        use_container_width=True,
+        key=f"stt_{sess.turn_count}",
+    )
+    if spoken:
+        answer = spoken
+
+typed = st.chat_input("Your answer… (or use the mic above)")
+if typed:
+    answer = typed
+
+if answer:
     with st.spinner("Thinking…"):
-        st.session_state.last = sess.submit(prompt)
+        st.session_state.last = sess.submit(answer)
     st.rerun()
