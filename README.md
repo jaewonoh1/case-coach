@@ -103,6 +103,25 @@ acceptable ranges), and model recommendation that only the grader/math agents se
 
 ---
 
+## Updating the Impact section (one command)
+
+The app logs every graded answer to `data/scores_log.jsonl`, so your before/after
+improvement is real, recorded data. After running a few cases:
+
+```bash
+python tools/update_impact.py                       # preview your numbers
+python tools/update_impact.py --apply \
+    --quote "your one-line reflection" \
+    --note  "one sentence on what changed"
+```
+
+`--apply` fills the before/after scores, the case count, and the Figure 6 trend
+chart into both `report.html` and `slides.html` automatically (it reads the score
+log and writes a dependency-free SVG chart). Re-run after more cases to refresh.
+Add a classmate's run for Tier-3 strength.
+
+---
+
 ## Project layout
 
 ```
@@ -112,12 +131,14 @@ case-coach/
 │   ├── config.py          # model + Portkey gateway + .env loading
 │   ├── llm.py             # single chat() wrapper (OpenAI SDK → Portkey)
 │   ├── tokens.py          # token logging + cost for tokenomics
+│   ├── scores.py          # per-turn score logging (for the Impact trial)
 │   ├── safety.py          # injection / turn-cap / budget guardrails
 │   ├── cases.py           # case-bank loader
 │   ├── agents.py          # interviewer, grader, math checker, coach
 │   └── orchestrator.py    # coordinates a case session
 ├── prompts/               # one markdown prompt per agent
 ├── cases/                 # JSON case bank (small test set)
+├── tools/update_impact.py # fills the Impact section from logged scores
 ├── requirements.txt
 └── .env.example
 ```

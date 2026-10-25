@@ -8,9 +8,10 @@ the grader, math checker, and coach.
 from __future__ import annotations
 
 import re
+import time
 from dataclasses import dataclass, field
 
-from . import agents, safety
+from . import agents, safety, scores
 from .tokens import reset as reset_tokens
 
 PHASES = ["framework", "analysis", "recommendation", "done"]
@@ -44,10 +45,12 @@ class CaseSession:
     turn_count: int = 0
     conversation: list[dict] = field(default_factory=list)
     scores: list[dict] = field(default_factory=list)
+    run_id: str = ""
 
     def start(self) -> str:
         """Begin the case; returns the interviewer's opening line."""
         reset_tokens()
+        self.run_id = f"{int(time.time())}-{self.case['id']}"
         opening = agents.opening_line(self.case)
         self.conversation.append({"role": "assistant", "content": opening})
         return opening
@@ -100,6 +103,8 @@ class CaseSession:
                 "depth": grader.get("depth_score", 0),
             }
         )
+        # Persist to data/scores_log.jsonl so a trial's before/after survives.
+        scores.record_scores(self.run_id, self.case["id"], self.turn_count, grader)
         self._advance_phase(user_msg, grader)
 
         return TurnResult(

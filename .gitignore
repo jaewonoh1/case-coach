@@ -11,7 +11,7 @@ venv/
 .Python
 
 # App data / logs (regenerated at runtime)
-data/token_log.jsonl
+data/*.jsonl
 
 # OS / editor
 .DS_Store

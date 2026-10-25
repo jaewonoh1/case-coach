@@ -301,15 +301,15 @@ reply:   "I can't hand you the answer, the model framework, or data you
       <li><b>Quality:</b> every answer is scored on structure, MECE, and depth, so improvement is <b>measurable across a week of practice</b>. <span class="muted">[Add your before/after average scores once you've run several sessions — the app tracks them automatically.]</span></li>
     </ul>
     <h3>Real-user trial</h3>
-    <p>Case Coach's first user is also its most relevant one: a Yale SOM student actively recruiting for consulting (the author). Over <b>[N] days</b> I ran <b>[N] full cases</b> (<b>[e.g., profitability, market-entry, pricing]</b>), using the app exactly as a recruit would — answering live, without looking at the hidden answers.</p>
-    <p><b>Before vs. after.</b> My average <b>structure</b> score rose from <b>[first case avg, e.g. 2.5]</b> to <b>[later case avg, e.g. 4.0]</b>, and <b>MECE</b> from <b>[X]</b> to <b>[Y]</b>, across the sessions (the app scores every answer on structure, MECE, and depth). <span class="muted">[One honest sentence on what specifically changed — e.g., "I stopped skipping the external-factors bucket and my frameworks became MECE on the first pass."]</span></p>
+    <p>Case Coach's first user is also its most relevant one: a Yale SOM student actively recruiting for consulting (the author). Over <b><span data-fill="days">[run tools/update_impact.py]</span> days</b> I ran <b><span data-fill="ncases">[run tools/update_impact.py]</span> full cases</b> (<span data-fill="casetypes">[run tools/update_impact.py]</span>), using the app exactly as a recruit would — answering live, without looking at the hidden answers.</p>
+    <p><b>Before vs. after.</b> My average <b>structure</b> score rose from <b><span data-fill="struct_before">[–]</span></b> to <b><span data-fill="struct_after">[–]</span></b>, and <b>MECE</b> from <b><span data-fill="mece_before">[–]</span></b> to <b><span data-fill="mece_after">[–]</span></b>, across the sessions (the app scores every answer on structure, MECE, and depth). <span class="muted" data-fill="note">[one sentence on what changed — pass --note "…" or edit here]</span></p>
     <figure>
-      <div class="shot">📸 Screenshot slot 6 — your score trend: either the "Average scores this case" chart from a later session, or an early session next to a later one. Replace with &lt;img&gt;.</div>
-      <figcaption>Figure 6. Structure/MECE/depth scores improving across practice sessions.</figcaption>
+      <div id="trial-chart" class="shot">📊 Run <code>python tools/update_impact.py --apply</code> to insert your score-trend chart here (built from data/scores_log.jsonl).</div>
+      <figcaption>Figure 6. Average structure / MECE / depth across practice sessions.</figcaption>
     </figure>
-    <p><b>In my words:</b> <i>"[One or two honest sentences: how it changed what you did in a real mock or interview — e.g., 'By my fourth case I was laying out a MECE framework in under a minute; in my next live mock the interviewer called my structure the strongest part.']"</i></p>
-    <p class="muted">To push this to Tier 3: add one classmate's run here — a one-line quote plus their score trend. One outside user turns "the author likes his tool" into "an independent recruit found it useful."</p>
-    <div class="evidence">Evidence note: fill the <b>bold blanks</b> with your real numbers and the trend screenshot (real data, not estimates) for near-full credit; a classmate's run earns full Tier-3 strength on this 5-point row.</div>
+    <p><b>In my words:</b> <i data-fill="quote">"[your reflection — pass --quote "…" or edit here]"</i></p>
+    <p class="muted">To push this to Tier 3: add one classmate's run — a one-line quote plus their score trend. One outside user turns "the author likes his tool" into "an independent recruit found it useful."</p>
+    <div class="evidence">How to fill this section: run a few cases in the app, then <code>python tools/update_impact.py --apply --quote "…"</code> fills the numbers and chart automatically from the logged scores. Real data, not estimates; a classmate's run earns full Tier-3 strength on this 5-point row.</div>
   </section>
 
   <!-- ============================ 7. LIMITS & NEXT STEPS ============================ -->
