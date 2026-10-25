@@ -1,9 +1,13 @@
 # 📊 Case Coach
 
-A multi-agent mock **case-interview coach** for consulting recruiting. You run a
-real case against an AI interviewer; behind the scenes a **math checker**, a
+An **adaptive** multi-agent **case-interview coach** for consulting recruiting. You
+run a real case against an AI interviewer; behind the scenes a **math checker**, a
 **structure grader**, and a **coach** evaluate every answer and give you one
 targeted improvement per turn — with live scores you can track across a case.
+
+What makes it more than a mock interviewer: it **remembers your scores across
+sessions, finds your weakest dimension (structure, MECE, or depth), and focuses
+the next case on it** — the interviewer presses there and the coach prioritizes it.
 
 Built for MGT 409 (AI Foundations for Managers). Single model: **gpt-6-luna** via
 the Portkey gateway.
@@ -131,7 +135,8 @@ case-coach/
 │   ├── config.py          # model + Portkey gateway + .env loading
 │   ├── llm.py             # single chat() wrapper (OpenAI SDK → Portkey)
 │   ├── tokens.py          # token logging + cost for tokenomics
-│   ├── scores.py          # per-turn score logging (for the Impact trial)
+│   ├── scores.py          # per-turn score logging (persists across sessions)
+│   ├── adapt.py           # adaptive focus: finds + targets your weakest dimension
 │   ├── safety.py          # injection / turn-cap / budget guardrails
 │   ├── cases.py           # case-bank loader
 │   ├── agents.py          # interviewer, grader, math checker, coach

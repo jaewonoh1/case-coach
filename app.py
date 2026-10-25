@@ -8,7 +8,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from coach import safety, tokens
+from coach import adapt, safety, tokens
 from coach.cases import get_case, load_cases
 from coach.orchestrator import CaseSession
 
@@ -35,8 +35,8 @@ st.markdown(
 
 st.markdown('<p class="cc-title">📊 Case Coach</p>', unsafe_allow_html=True)
 st.markdown(
-    '<p class="cc-sub">A multi-agent mock case interviewer — interviewer, '
-    "math checker, structure grader, and coach.</p>",
+    '<p class="cc-sub">An adaptive multi-agent case coach — interviewer, '
+    "math checker, structure grader, and coach that targets your weakest skill.</p>",
     unsafe_allow_html=True,
 )
 
@@ -53,9 +53,21 @@ case_labels = {f"{c['title']}  ·  {c['type']} ({c['difficulty']})": c["id"] for
 with st.sidebar:
     st.header("Start a case")
     choice = st.selectbox("Choose a case", list(case_labels.keys()))
+
+    # Adaptive focus: read past scores and target your weakest dimension.
+    weak = adapt.weakest_dimension()
+    focus_on = False
+    if weak:
+        avgs = "  ·  ".join(f"{adapt.LABELS[d]} {v}" for d, v in weak["averages"].items())
+        st.markdown(f"🎯 **Adaptive focus** — your weakest area is **{weak['label']}** (avg {weak['avg']}/5).")
+        st.caption(f"Across your history: {avgs}")
+        focus_on = st.checkbox(f"Target {weak['label']} this case", value=True)
+    else:
+        st.caption("🎯 Adaptive focus activates after your first graded case.")
+
     if st.button("▶ Start / restart case", use_container_width=True):
         case = get_case(case_labels[choice])
-        sess = CaseSession(case=case)
+        sess = CaseSession(case=case, focus=(weak["dim"] if (weak and focus_on) else None))
         with st.spinner("The interviewer is opening the case…"):
             sess.start()
         st.session_state.session = sess
@@ -93,9 +105,14 @@ if sess is None:
 chat_col, coach_col = st.columns([2, 1])
 
 with chat_col:
+    focus_pill = (
+        f' <span class="cc-pill">🎯 Focus: {adapt.LABELS[sess.focus]}</span>'
+        if sess.focus
+        else ""
+    )
     st.markdown(
         f'<span class="cc-pill">Case: {sess.case["title"]}</span> '
-        f'<span class="cc-pill">Phase: {sess.phase}</span>',
+        f'<span class="cc-pill">Phase: {sess.phase}</span>{focus_pill}',
         unsafe_allow_html=True,
     )
     st.write("")

@@ -46,12 +46,13 @@ class CaseSession:
     conversation: list[dict] = field(default_factory=list)
     scores: list[dict] = field(default_factory=list)
     run_id: str = ""
+    focus: str | None = None  # weakest dimension to target this session (adapt.py)
 
     def start(self) -> str:
         """Begin the case; returns the interviewer's opening line."""
         reset_tokens()
         self.run_id = f"{int(time.time())}-{self.case['id']}"
-        opening = agents.opening_line(self.case)
+        opening = agents.opening_line(self.case, focus=self.focus)
         self.conversation.append({"role": "assistant", "content": opening})
         return opening
 
@@ -88,12 +89,12 @@ class CaseSession:
 
         # --- Normal turn: interviewer replies, then the graders evaluate ---
         self.conversation.append({"role": "user", "content": user_msg})
-        interviewer = agents.interviewer_reply(self.case, self.phase, self.conversation)
+        interviewer = agents.interviewer_reply(self.case, self.phase, self.conversation, focus=self.focus)
         self.conversation.append({"role": "assistant", "content": interviewer})
 
         grader = agents.grade_structure(self.case, user_msg)
         math = agents.check_math(self.case, user_msg)
-        coach = agents.coach_tip(self.case, user_msg, grader, math)
+        coach = agents.coach_tip(self.case, user_msg, grader, math, focus=self.focus)
 
         self.scores.append(
             {

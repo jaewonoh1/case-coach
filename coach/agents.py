@@ -13,6 +13,7 @@ from __future__ import annotations
 import re
 from functools import lru_cache
 
+from .adapt import LABELS, focus_instruction
 from .cases import case_facts_for_interviewer, quant_key
 from .config import PROMPTS_DIR
 from .llm import chat, chat_json
@@ -23,37 +24,37 @@ def _prompt(name: str) -> str:
     return (PROMPTS_DIR / f"{name}.md").read_text(encoding="utf-8")
 
 
-def interviewer_reply(case: dict, phase: str, conversation: list[dict]) -> str:
+def _interviewer_context(case: dict, phase: str, focus: str | None) -> str:
+    ctx = (
+        f"CURRENT PHASE: {phase}\n\n"
+        f"CASE DETAILS (for your eyes only):\n{case_facts_for_interviewer(case)}"
+    )
+    note = focus_instruction(focus)
+    if note:
+        ctx += f"\n\n{note}"
+    return ctx
+
+
+def interviewer_reply(case: dict, phase: str, conversation: list[dict], focus: str | None = None) -> str:
     """Return the interviewer's in-character reply.
 
     `conversation` is the running list of {role, content} turns, ending with the
-    candidate's latest message.
+    candidate's latest message. `focus` (optional) makes the interviewer press
+    harder on one dimension — see coach/adapt.py.
     """
     messages = [
         {"role": "system", "content": _prompt("interviewer")},
-        {
-            "role": "system",
-            "content": (
-                f"CURRENT PHASE: {phase}\n\n"
-                f"CASE DETAILS (for your eyes only):\n{case_facts_for_interviewer(case)}"
-            ),
-        },
+        {"role": "system", "content": _interviewer_context(case, phase, focus)},
         *conversation,
     ]
     return chat(messages, label="interviewer", temperature=0.5)
 
 
-def opening_line(case: dict) -> str:
+def opening_line(case: dict, focus: str | None = None) -> str:
     """Interviewer's opening — delivered when a case starts."""
     messages = [
         {"role": "system", "content": _prompt("interviewer")},
-        {
-            "role": "system",
-            "content": (
-                "CURRENT PHASE: framework\n\n"
-                f"CASE DETAILS (for your eyes only):\n{case_facts_for_interviewer(case)}"
-            ),
-        },
+        {"role": "system", "content": _interviewer_context(case, "framework", focus)},
         {
             "role": "user",
             "content": "[The candidate just sat down. Open the case now.]",
@@ -103,8 +104,18 @@ def check_math(case: dict, user_msg: str) -> dict:
     return chat_json(messages, label="math_checker", default={"checks": [], "overall": ""})
 
 
-def coach_tip(case: dict, user_msg: str, grader: dict, math: dict) -> str:
-    """One targeted improvement, synthesizing the graders' output."""
+def coach_tip(case: dict, user_msg: str, grader: dict, math: dict, focus: str | None = None) -> str:
+    """One targeted improvement, synthesizing the graders' output.
+
+    When `focus` is set, the coach prioritizes a tip that improves the candidate's
+    weakest dimension.
+    """
+    focus_line = (
+        f"\n\nThe candidate's weakest area overall is {LABELS.get(focus, focus)}; "
+        "if it is relevant to this turn, prioritize a tip that improves it."
+        if focus
+        else ""
+    )
     messages = [
         {"role": "system", "content": _prompt("coach")},
         {
@@ -113,7 +124,7 @@ def coach_tip(case: dict, user_msg: str, grader: dict, math: dict) -> str:
                 f"CASE: {case['title']} ({case.get('type', '')})\n\n"
                 f"STRUCTURE GRADER: {grader}\n\n"
                 f"MATH CHECKER: {math}\n\n"
-                f"CANDIDATE'S LATEST MESSAGE:\n{user_msg}"
+                f"CANDIDATE'S LATEST MESSAGE:\n{user_msg}{focus_line}"
             ),
         },
     ]

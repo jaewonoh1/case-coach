@@ -95,7 +95,7 @@
   <section class="cover">
     <span class="badge">MGT 409 · AI Foundations for Managers · Final Project</span>
     <h1 style="margin-top:18px;">Case Coach</h1>
-    <div class="tagline">A multi-agent mock case-interview coach that runs a real case, grades your math and structure separately, and coaches one fix at a time — built for consulting recruiting.</div>
+    <div class="tagline">A multi-agent case-interview coach that runs a real case, grades your math and structure separately, coaches one fix at a time, and adapts across sessions to target your weakest skill — built for consulting recruiting.</div>
     <div class="links">
       <div><b>Author:</b> Jae Won Oh &nbsp;·&nbsp; <span class="muted">j.oh@yale.edu</span></div>
       <div><b>GitHub repo:</b> <a href="https://github.com/jaewonoh1/case-coach">github.com/jaewonoh1/case-coach</a></div>
@@ -143,12 +143,12 @@
     <table>
       <tr><th>Option</th><th>What it does</th><th>Where Case Coach differs</th></tr>
       <tr><td>Generic ChatGPT / Claude prompt</td><td>Will role-play a case if asked</td><td>Leaks the answer the moment you ask; no structured scoring; no guardrail against "just tell me"</td></tr>
-      <tr><td><b>Soreno AI</b> (AI case tool)</td><td>Voice AI interviewer; shares exhibits; scores against a rubric (~$199/mo)</td><td>Closest competitor. Case Coach is near-free and self-hostable, uses <i>separate</i> math and structure graders, and ships an explicit, demonstrated answer-leak guardrail (open code)</td></tr>
+      <tr><td><b>Soreno AI</b> (AI case tool)</td><td>Voice AI interviewer; shares exhibits; scores against a rubric (~$199/mo)</td><td>Closest competitor, but it grades each session in isolation. Case Coach <i>adapts across sessions</i> — it targets your weakest dimension — uses <i>separate</i> math and structure graders, ships a demonstrated answer-leak guardrail, and is near-free and self-hostable (open code)</td></tr>
       <tr><td>PrepLounge / case partners</td><td>Peer mocks + 200+ cases (free tier capped; Premium ~$69/yr)</td><td>Needs a willing partner and scheduling; Case Coach is on-demand and grades consistently</td></tr>
       <tr><td>Professional coach</td><td>Expert human feedback ($150–$350/hr)</td><td>$$$ and limited hours; Case Coach is ~$0.001 per run and unlimited</td></tr>
       <tr><td>Case books (e.g., Case in Point)</td><td>Static frameworks</td><td>No interaction, no live math check, no personalized coaching</td></tr>
     </table>
-    <p><b>The core novelty:</b> commercial AI tools like Soreno now role-play cases too, so the edge is not "an AI interviewer." It is the combination of (1) a <i>transparent multi-agent</i> design — separate agents grade math and structure (MECE/depth) rather than one opaque score; (2) an explicit, deterministic <i>answer-leak guardrail</i> shown blocking injections before any model call; and (3) <i>near-zero cost and self-hostability</i> (~$0.001/run vs. ~$199/mo), with open code a student can run and extend.</p>
+    <p><b>The core novelty:</b> commercial AI tools like Soreno now role-play cases too, so the edge is not "an AI interviewer." It is that Case Coach is an <i>adaptive coach, not just a mock interviewer</i>: (1) it reads your scores across <i>every past session</i>, finds your weakest dimension (structure, MECE, or depth), and focuses the next case on it — the interviewer presses there and the coach prioritizes it; (2) a <i>transparent multi-agent</i> design grades math and structure separately rather than one opaque score; (3) a deterministic <i>answer-leak guardrail</i> shown blocking injections before any model call; and (4) <i>near-zero cost and self-hostable</i> (~$0.001/run vs. ~$199/mo), with open code a student can run and extend.</p>
     <div class="evidence">Evidence present: named products compared against (ChatGPT, Soreno AI, PrepLounge, professional coaches, Case in Point) with real prices.</div>
   </section>
 
@@ -210,6 +210,9 @@
 
     <h3>Model choice</h3>
     <p>All four agents use <b>gpt-6-luna</b>, the only model the course key permits, routed through Portkey. It is run with <code>reasoning_effort = "none"</code> so it behaves like a fast chat model — low latency for a live interview and lower token cost (see §4). A single capable model across all four roles keeps the system simple and cheap: no routing logic, shared prompt caching, and each role shaped entirely by its own system prompt rather than a different model. The tasks (in-character role-play, JSON grading, a one-line tip) all sit well within one model's range, so splitting across models would add cost and operational complexity for no measurable quality gain.</p>
+
+    <h3>Adaptive focus — the learning loop</h3>
+    <p>Every graded answer is logged to <code>data/scores_log.jsonl</code>, so Case Coach remembers how you've done across sessions. Before each case it computes your average structure, MECE, and depth across all past turns and picks your <b>weakest dimension</b>. That dimension is passed into the session as a <code>focus</code>: the interviewer is told to press on it, and the coach is told to prioritize tips for it. The app shows the target up front (e.g., "🎯 Adaptive focus — your weakest area is Structure (avg 2.0/5)"). Because the loop is driven by persisted scores, improvement on the targeted dimension is visible over time in the trend chart (§6) — this is what makes Case Coach an adaptive coach rather than a one-off mock interviewer.</p>
 
     <h3>One traced run (step by step)</h3>
     <p>The sequence below is a real run; replace each slot with a screenshot from the app.</p>
@@ -327,7 +330,7 @@ reply:   "I can't hand you the answer, the model framework, or data you
     <ul>
       <li>A larger, tagged case bank (by industry and type) with real exhibit charts.</li>
       <li>Voice mode for realistic spoken practice.</li>
-      <li>A persistent profile that tracks your weak dimension across sessions and targets it.</li>
+      <li>Auto-<i>generate</i> brand-new cases that drill your weakest dimension (today the adaptive focus targets that dimension within the existing case bank).</li>
       <li>A shareable end-of-session summary (scores + transcript) to send a coach or track progress across the recruiting season.</li>
     </ul>
   </section>
