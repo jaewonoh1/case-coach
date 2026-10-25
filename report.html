@@ -100,7 +100,7 @@
       <div><b>Author:</b> Jae Won Oh &nbsp;·&nbsp; <span class="muted">j.oh@yale.edu</span></div>
       <div><b>GitHub repo:</b> <a href="https://github.com/jaewonoh1/case-coach">github.com/jaewonoh1/case-coach</a></div>
       <div><b>Live app:</b> <span class="muted">Runs locally — see README (clone, add <code>.env</code>, <code>streamlit run app.py</code>)</span></div>
-      <div><b>Date:</b> October 2026 · <b>Model:</b> gpt-6-luna (via Portkey)</div>
+      <div><b>Date:</b> October 26, 2026 · <b>Model:</b> gpt-6-luna (via Portkey)</div>
     </div>
     <div class="todo no-print" style="margin-top:34px;">
       <b>How to use this skeleton.</b> Every yellow box is a TODO; every blue dashed box names the exact evidence the rubric requires for that section; every hatched box is a screenshot slot — replace it with <code>&lt;img src="data:image/png;base64,…"&gt;</code> so images stay embedded in this single file. Target length is 10–15 printed pages. Delete these yellow boxes before submitting.
@@ -131,7 +131,7 @@
       <li><b>Professional case coaches:</b> roughly <b>$150–$350 per hour</b> for an ex-MBB coach (ManagementConsulted lists a 1-hour session at $350 and a 4-hour package at $950; MyConsultingCoach bundles five sessions for ~$1,000) — effective but expensive and limited in hours.</li>
       <li><b>Prep platforms &amp; books:</b> PrepLounge (peer mocks + 200+ cases; Premium ~$69/yr), RocketBlocks (~$35/mo drills), and books like <i>Case in Point</i> — cheaper, but static or still dependent on finding a partner.</li>
     </ul>
-    <p><b>What it costs them.</b> A serious recruit spends <b>dozens of hours</b> and often <b>$500–$2,000</b> on coaching across a season — and the opportunity cost dwarfs that: a missed MBB offer is a first-year package well over <b>$200,000</b>. <span class="muted">[Optional: add your own hours/spend to personalize this.]</span></p>
+    <p><b>What it costs them.</b> A serious recruit spends <b>dozens of hours</b> and often <b>$500–$2,000</b> on coaching across a season — and the opportunity cost dwarfs that: a missed MBB offer is a first-year package well over <b>$200,000</b>.</p>
     <div class="evidence">Evidence required for this row: <b>named existing products you compare against</b> (do this in §2). Motivation + novelty is worth 8 report points.</div>
   </section>
 
@@ -260,7 +260,7 @@
     <ul>
       <li><b>Prompt caching</b> — the interviewer's system prompt and full case file repeat every turn, so they are cached: <b>5,625 of the interviewer's 6,275 input tokens (~90%) were cached</b>, billed at $0.01 rather than $0.10 per 1M. Across the run, caching cut input-token cost by <b>~42%</b> (from $0.00120 to $0.00069 per run) with no quality tradeoff.</li>
       <li><b>Gating the math checker</b> — it only fires when the candidate's message contains digits. On this run it ran on <b>2 of 4 turns</b>, saving two model calls (~13% of calls) and the ~370 output tokens those extra checks would have cost.</li>
-      <li><b>Reasoning effort "none"</b> — all agents run gpt-6-luna with <code>reasoning_effort="none"</code>, keeping output tokens low (avg 258/turn) and latency fast enough for a live interview. Tradeoff: less internal deliberation, acceptable because grading is a bounded, well-specified task. <span class="todo">[Optional: measure output/latency vs. default reasoning for a direct before/after.]</span></li>
+      <li><b>Reasoning effort "none"</b> — all agents run gpt-6-luna with <code>reasoning_effort="none"</code>, keeping output tokens low (avg 258/turn) and latency fast enough for a live interview. Tradeoff: less internal deliberation, acceptable because grading is a bounded, well-specified task.</li>
     </ul>
     <div class="evidence">Evidence present: measured caching split and call-gating counts from the run. The reasoning-effort before/after is the one optional add.</div>
   </section>
@@ -301,7 +301,7 @@ reply:   "I can't hand you the answer, the model framework, or data you
     <ul>
       <li><b>Money:</b> model cost is ~<b>$0.0012 per full case</b> vs. <b>$150–$350</b> for an hour with a coach — roughly <b>five orders of magnitude cheaper</b> per practice case. Twenty cases a month cost ~$0.02 in model spend vs. $3,000–$7,000 in coaching.</li>
       <li><b>Time:</b> a coach or peer session must be booked around someone else's calendar; Case Coach starts a full, graded case <b>in seconds, any hour</b>, removing the scheduling bottleneck that caps peer practice.</li>
-      <li><b>Quality:</b> every answer is scored on structure, MECE, and depth, so improvement is <b>measurable across a week of practice</b>. <span class="muted">[Add your before/after average scores once you've run several sessions — the app tracks them automatically.]</span></li>
+      <li><b>Quality:</b> every answer is scored on structure, MECE, and depth, so improvement is <b>measurable across a week of practice</b> (see the real-user trial below).</li>
     </ul>
     <h3>Real-user trial</h3>
     <p>Case Coach's first user is also its most relevant one: a Yale SOM student actively recruiting for consulting (the author). Over <b><span data-fill="days">[run tools/update_impact.py]</span> days</b> I ran <b><span data-fill="ncases">[run tools/update_impact.py]</span> full cases</b> (<span data-fill="casetypes">[run tools/update_impact.py]</span>), using the app exactly as a recruit would — answering live, without looking at the hidden answers, and letting the <b>adaptive focus</b> target my weakest dimension each session.</p>
