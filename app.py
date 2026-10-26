@@ -43,26 +43,48 @@ st.set_page_config(page_title="Case Coach", page_icon="📊", layout="wide")
 # --- Yale blue + white styling -------------------------------------------------
 YALE_BLUE = "#00356B"
 st.markdown(
-    f"""
+    """
     <style>
-      .stApp {{ background: #ffffff; }}
-      h1, h2, h3 {{ color: {YALE_BLUE}; }}
-      .cc-title {{ font-size: 2rem; font-weight: 800; color: {YALE_BLUE}; margin-bottom: 0; }}
-      .cc-sub {{ color: #44607d; margin-top: 0; }}
-      .cc-pill {{ display:inline-block; padding: 2px 10px; border-radius: 999px;
-                 background: {YALE_BLUE}; color: #fff; font-size: 0.8rem; font-weight:600; }}
-      .cc-pill-warn {{ background:#b00020; }}
-      .stButton>button {{ background:{YALE_BLUE}; color:#fff; border:0; border-radius:8px; font-weight:600; }}
-      div[data-testid="stMetricValue"] {{ color:{YALE_BLUE}; }}
+      :root { --yale:#00356B; --yale2:#286DC0; --soft:#eef4fb; --ink:#17222e; --line:#d9e1ea; }
+      .stApp { background:#ffffff; }
+      html, body, [class*="css"] { font-family:"Inter","Helvetica Neue",Arial,sans-serif; }
+      h1, h2, h3 { color:var(--yale); }
+      /* Hero header */
+      .cc-hero { background:linear-gradient(135deg,#00356B 0%,#0a4a8f 55%,#286DC0 100%);
+                 color:#fff; padding:22px 26px; border-radius:16px; margin-bottom:16px;
+                 box-shadow:0 8px 24px rgba(0,53,107,0.18); }
+      .cc-hero .cc-title { font-size:2rem; font-weight:800; color:#fff; margin:0; letter-spacing:-0.5px; }
+      .cc-hero .cc-sub { color:#d6e5f6; margin:6px 0 0; font-size:1rem; line-height:1.4; }
+      /* Pills */
+      .cc-pill { display:inline-block; padding:3px 12px; border-radius:999px; background:var(--yale);
+                 color:#fff; font-size:0.78rem; font-weight:600; margin-right:6px; }
+      .cc-pill-warn { background:#b00020; }
+      /* Buttons */
+      .stButton>button { background:var(--yale); color:#fff; border:0; border-radius:10px; font-weight:600;
+                         padding:0.5rem 1rem; transition:all .15s ease; }
+      .stButton>button:hover { background:#0a4a8f; transform:translateY(-1px);
+                               box-shadow:0 4px 12px rgba(0,53,107,0.25); color:#fff; }
+      /* Chat bubbles */
+      [data-testid="stChatMessage"] { background:var(--soft); border:1px solid var(--line);
+                                      border-radius:12px; padding:8px 14px; margin-bottom:8px; }
+      /* Metrics as cards */
+      [data-testid="stMetric"] { background:#fff; border:1px solid var(--line); border-radius:12px;
+                                 padding:10px 12px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+      div[data-testid="stMetricValue"] { color:var(--yale); font-weight:800; }
+      /* Sidebar */
+      section[data-testid="stSidebar"] { background:#f7fafd; border-right:1px solid var(--line); }
+      .stAlert { border-radius:12px; }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-st.markdown('<p class="cc-title">📊 Case Coach</p>', unsafe_allow_html=True)
 st.markdown(
-    '<p class="cc-sub">An adaptive multi-agent case coach — interviewer, '
-    "math checker, structure grader, and coach that targets your weakest skill.</p>",
+    '<div class="cc-hero">'
+    '<p class="cc-title">📊 Case Coach</p>'
+    '<p class="cc-sub">An adaptive multi-agent case-interview coach — it runs the case, grades your '
+    "math and structure, coaches one fix at a time, and targets your weakest skill across sessions.</p>"
+    "</div>",
     unsafe_allow_html=True,
 )
 
