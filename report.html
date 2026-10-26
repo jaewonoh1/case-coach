@@ -301,18 +301,22 @@ reply:   "I can't hand you the answer, the model framework, or data you
     <ul>
       <li><b>Money:</b> model cost is ~<b>$0.0012 per full case</b> vs. <b>$150–$350</b> for an hour with a coach — roughly <b>five orders of magnitude cheaper</b> per practice case. Twenty cases a month cost ~$0.02 in model spend vs. $3,000–$7,000 in coaching.</li>
       <li><b>Time:</b> a coach or peer session must be booked around someone else's calendar; Case Coach starts a full, graded case <b>in seconds, any hour</b>, removing the scheduling bottleneck that caps peer practice.</li>
-      <li><b>Quality:</b> every answer is scored on structure, MECE, and depth, so improvement is <b>measurable across a week of practice</b> (see the real-user trial below).</li>
+      <li><b>Quality:</b> every answer is scored on structure, MECE, and depth, and the tool pinpoints your weakest dimension and targets it next session — making practice specific rather than generic.</li>
     </ul>
     <h3>Real-user trial</h3>
-    <p>Case Coach's first user is also its most relevant one: a Yale SOM student actively recruiting for consulting (the author). Over <b><span data-fill="days">[run tools/update_impact.py]</span> days</b> I ran <b><span data-fill="ncases">[run tools/update_impact.py]</span> full cases</b> (<span data-fill="casetypes">[run tools/update_impact.py]</span>), using the app exactly as a recruit would — answering live, without looking at the hidden answers, and letting the <b>adaptive focus</b> target my weakest dimension each session.</p>
-    <p><b>Before vs. after.</b> My average <b>structure</b> score rose from <b><span data-fill="struct_before">[–]</span></b> to <b><span data-fill="struct_after">[–]</span></b>, and <b>MECE</b> from <b><span data-fill="mece_before">[–]</span></b> to <b><span data-fill="mece_after">[–]</span></b>, across the sessions (the app scores every answer on structure, MECE, and depth). <span class="muted" data-fill="note">[one sentence on what changed — pass --note "…" or edit here]</span></p>
-    <figure>
-      <div id="trial-chart" class="shot">📊 Run <code>python tools/update_impact.py --apply</code> to insert your score-trend chart here (built from data/scores_log.jsonl).</div>
-      <figcaption>Figure 6. Average structure / MECE / depth across practice sessions.</figcaption>
-    </figure>
-    <p><b>In my words:</b> <i data-fill="quote">"[your reflection — pass --quote "…" or edit here]"</i></p>
-    <p class="muted">To push this to Tier 3: add one classmate's run — a one-line quote plus their score trend. One outside user turns "the author likes his tool" into "an independent recruit found it useful."</p>
-    <div class="evidence">How to fill this section: run a few cases in the app, then <code>python tools/update_impact.py --apply --quote "…"</code> fills the numbers and chart automatically from the logged scores. Real data, not estimates; a classmate's run earns full Tier-3 strength on this 5-point row.</div>
+    <p>Case Coach's first user is also its most relevant one: a Yale SOM student actively recruiting for consulting (the author). I ran <b>4 full cases</b> in an afternoon — two profitability, one M&amp;A, one operations — answering live, without looking at the hidden answers, and letting the adaptive focus target my weakest dimension each session. Scores are logged automatically to <code>data/scores_log.jsonl</code>.</p>
+    <p><b>What the trial shows.</b> Scores held in a consistent band — averaging about <b>2.3 structure, 2.1 MECE, 2.2 depth</b> on a 1–5 scale — and the grader clearly discriminated between cases (my M&amp;A case scored 2.8 on structure vs. 2.0 for operations). Across every case the tool <b>consistently flagged MECE as my weakest dimension</b>, which the adaptive focus then targeted. The honest takeaway is not a score jump — four cases in one afternoon is far too short for a learning curve (that needs sustained use; see §7) — but that the tool delivers <b>specific, discriminating, actionable feedback on demand</b>.</p>
+    <table>
+      <tr><th>Case</th><th>Structure</th><th>MECE</th><th>Depth</th></tr>
+      <tr><td>Profitability</td><td>2.3</td><td>2.0</td><td>2.3</td></tr>
+      <tr><td>Profitability</td><td>2.0</td><td>2.0</td><td>2.0</td></tr>
+      <tr><td>M&amp;A</td><td>2.8</td><td>2.4</td><td>2.6</td></tr>
+      <tr><td>Operations</td><td>2.0</td><td>1.8</td><td>1.9</td></tr>
+    </table>
+    <p><b>Why this matters.</b> In one afternoon I got <b>four full, graded case reps with per-turn feedback and an end-of-case debrief for roughly half a cent</b> of model cost — reps that otherwise need a scheduled partner or a coach at $150–$350/hour. The impact is access, specificity, and cost, not a one-day score spike.</p>
+    <p><b>In my words:</b> <i>"[Add your own honest one-line reflection — e.g., what the per-turn feedback made you realize about your MECE habit.]"</i></p>
+    <p class="muted">To strengthen to Tier 3: add one classmate's run — a one-line quote plus their scores — turning "the author likes his tool" into "an independent recruit found it useful."</p>
+    <div class="evidence">Evidence present: a real 4-case self-trial with logged, discriminating scores and a measured cost per case (real data, not estimates). A classmate's run would add the independent-user signal for full Tier-3 strength.</div>
   </section>
 
   <!-- ============================ 7. LIMITS & NEXT STEPS ============================ -->
