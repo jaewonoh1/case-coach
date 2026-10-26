@@ -50,10 +50,10 @@
   .mono { font-family: "SF Mono", Consolas, monospace; font-size: 0.5em; background: #0f2238; color: #e8f0f8; padding: 16px 18px; border-radius: 10px; line-height: 1.5; white-space: pre; overflow: auto; }
   .todo { color: #a07a00; font-weight: 700; }
   .footnote { margin-top: 0.7em; font-size: 0.42em; color: var(--muted); }
-  /* Keep embedded screenshots inside the slide so content never overflows */
-  .reveal .slides section img { max-width: 100%; height: auto; }
-  .reveal .slides > section:nth-of-type(5) img { max-height: 520px; width: auto; }  /* Demo */
-  .reveal .slides > section:nth-of-type(7) img { max-height: 230px; width: auto; }  /* Safety */
+  /* Embedded screenshots: preserve aspect (override the inline width:100%) and cap height so they fit */
+  .reveal .slides section img { max-width: 100%; width: auto !important; height: auto !important; display: block; margin: 0 auto; }
+  .reveal .slides > section:nth-of-type(5) img { max-height: 500px; }  /* Demo */
+  .reveal .slides > section:nth-of-type(7) img { max-height: 300px; }  /* Safety */
 </style>
 </head>
 <body>
